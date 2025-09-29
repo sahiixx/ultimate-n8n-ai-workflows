@@ -6,18 +6,18 @@ This repo now ships with a LiteLLM proxy that exposes an OpenAI-compatible API a
 
 1. Create a `.env` file from the example and add your key(s):
 
-```
+```bash
 cp .env.example .env
 # Edit .env and set ANTHROPIC_API_KEY=sk-ant-...
 ```
 
-2. Start services:
+1. Start services:
 
-```
+```bash
 docker-compose up -d
 ```
 
-3. Point your clients at the proxy:
+1. Point your clients at the proxy:
 
 - Base URL: `http://localhost:4000/v1`
 - API Key: any string (or set `x-litellm-api-key` if you configure one)
