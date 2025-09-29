@@ -31,11 +31,13 @@ This makes most existing OpenAI-compatible workflows work without changes.
 ## Using Inside n8n
 
 For nodes that expect OpenAI:
+
 - Set the base URL to `http://litellm:4000/v1` (in Docker network) or `http://localhost:4000/v1` from your host.
 - Put any string as the API key (or configure LiteLLM auth).
 - Choose a mapped model name (e.g., `gpt-4o`).
 
 For nodes that support Anthropic directly:
+
 - You can keep using Anthropic nodes with your `ANTHROPIC_API_KEY`.
 
 ## Notes
