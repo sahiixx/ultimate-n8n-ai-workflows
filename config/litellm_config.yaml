@@ -1,0 +1,54 @@
+# LiteLLM config to expose an OpenAI-compatible endpoint and route to Claude Sonnet 4 by default
+# Docs: https://docs.litellm.ai/docs/proxy/configs
+
+model_list:
+  # Map common OpenAI model aliases to Claude Sonnet 4.1
+  - model_name: gpt-4o
+    litellm_params:
+      model: anthropic/claude-3-7-sonnet-2025-06-20
+  - model_name: gpt-4o-2024-08-06
+    litellm_params:
+      model: anthropic/claude-3-7-sonnet-2025-06-20
+  - model_name: gpt-4.1
+    litellm_params:
+      model: anthropic/claude-3-7-sonnet-2025-06-20
+  - model_name: gpt-4
+    litellm_params:
+      model: anthropic/claude-3-7-sonnet-2025-06-20
+  - model_name: gpt-4-turbo
+    litellm_params:
+      model: anthropic/claude-3-7-sonnet-2025-06-20
+  - model_name: gpt-3.5-turbo
+    litellm_params:
+      model: anthropic/claude-3-7-sonnet-2025-06-20
+
+  # Explicit Claude names
+  - model_name: claude-3-7-sonnet
+    litellm_params:
+      model: anthropic/claude-3-7-sonnet-2025-06-20
+  - model_name: claude-3-7-sonnet-2025-06-20
+    litellm_params:
+      model: anthropic/claude-3-7-sonnet-2025-06-20
+
+  # Route generic 'default' to claude sonnet
+  - model_name: default
+    litellm_params:
+      model: anthropic/claude-3-7-sonnet-2025-06-20
+
+# Set keys via environment
+litellm_settings:
+  drop_params: false
+  force_timeout: 600
+  set_verbose: true
+  telemetry: false
+
+# Proxy server configuration
+proxy_server:
+  # The proxy listens on 0.0.0.0:4000 by default
+  # Exposes /v1/chat/completions and /v1/completions compatible with OpenAI
+  openai_compatible: true
+
+# Key routing / auth
+# You can pass any of these headers to the proxy; set via env vars.
+# - Authorization: Bearer <any string> (optional)
+# - x-litellm-api-key: ${LITELLM_API_KEY} (optional)

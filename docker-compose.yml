@@ -1,9 +1,9 @@
-version: '3.8'
-
 services:
   n8n:
     image: n8nio/n8n:latest
     restart: always
+    env_file:
+      - ./.env
     ports:
       - "5678:5678"
     environment:
@@ -16,6 +16,24 @@ services:
       - ./workflows:/home/node/.n8n/workflows
       - ./automation:/home/node/.n8n/automation
       - n8n_data:/home/node/.n8n
+    networks:
+      - n8n_network
+
+  litellm:
+    image: ghcr.io/berriai/litellm:latest
+    restart: always
+    env_file:
+      - ./.env
+    ports:
+      - "${LITELLM_PORT:-4000}:4000"
+    environment:
+      - LITELLM_CONFIG=/app/config.yaml
+      - LITELLM_LOG=info
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - ./config/litellm_config.yaml:/app/config.yaml:ro
     networks:
       - n8n_network
 
